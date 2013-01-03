@@ -41,6 +41,7 @@ SectionEnd
 Section "Start Menu Shortcut"
     SectionIn 1
     SetShellVarContext all
+    SetOutPath "$INSTDIR\${MeldDir}"
     CreateDirectory "$SMPROGRAMS\${ProgramName}"
     CreateShortCut "$SMPROGRAMS\${ProgramName}\${ProgramName}.lnk" "$INSTDIR\${MeldDir}\meld.vbs" "" "$INSTDIR\${MeldDir}\meld.ico"
     CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "$INSTDIR\${UninstallerExe}" "" "$INSTDIR\${MeldDir}\meld.ico"
@@ -48,6 +49,7 @@ SectionEnd
 Section "Desktop Shortcut"
     SectionIn 2
     SetShellVarContext all
+    SetOutPath "$INSTDIR\${MeldDir}"
     CreateShortCut "$DESKTOP\${ProgramName}.lnk" "$INSTDIR\${MeldDir}\meld.vbs" "" "$INSTDIR\${MeldDir}\meld.ico"
 SectionEnd
 
@@ -55,13 +57,15 @@ UninstPage uninstConfirm
 UninstPage instfiles
 
 Section "Uninstall"
+    SetShellVarContext all
     RMDir /r "$INSTDIR\${MeldDir}"
     RMDir /r "$INSTDIR\${PythonDir}"
     Delete "$INSTDIR\${UninstallerExe}"
     RMDir "$INSTDIR"
     RMDir /r "$SMPROGRAMS\${ProgramName}"
-    Delete "$DESKTOP\${ProgramName}.lnk" 
+    Delete "$DESKTOP\${ProgramName}.lnk"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
+    # TODO: checkbox for deleting data under C:\Users\wittk\AppData\Roaming\Meld
 SectionEnd
 
 Function .onInit
