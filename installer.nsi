@@ -24,7 +24,7 @@ LicenseData "LICENSES.rtf"
 DirText "Choose a directory to install Meld to."
 InstallDir "$PROGRAMFILES\${ProgramName}"
 
-Section "Program Files (Required)"
+Section "Program (Required)"
     SectionIn RO
     SetOutPath "$INSTDIR"
     File /r "${MeldDir}"
@@ -53,10 +53,12 @@ Section "Desktop Shortcut"
     CreateShortCut "$DESKTOP\${ProgramName}.lnk" "$INSTDIR\${MeldDir}\meld.vbs" "" "$INSTDIR\${MeldDir}\meld.ico"
 SectionEnd
 
+UninstPage components
 UninstPage uninstConfirm
 UninstPage instfiles
 
-Section "Uninstall"
+Section "un.Program and Shortcuts (Required)"
+    SectionIn RO
     SetShellVarContext all
     RMDir /r "$INSTDIR\${MeldDir}"
     RMDir /r "$INSTDIR\${PythonDir}"
@@ -65,7 +67,11 @@ Section "Uninstall"
     RMDir /r "$SMPROGRAMS\${ProgramName}"
     Delete "$DESKTOP\${ProgramName}.lnk"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
-    # TODO: checkbox for deleting data under C:\Users\wittk\AppData\Roaming\Meld
+SectionEnd
+
+Section "un.User Files (Uncheck if Reinstalling)"
+    SectionIn 1
+    RMDir /r "$APPDATA\${ProgramName}"
 SectionEnd
 
 Function .onInit
