@@ -1,0 +1,9 @@
+Here's how to build the installer:
+    1) Create a folder to put all the necessary bits in.
+    2) Download Meld 1.6.1 (http://ftp.gnome.org/pub/GNOME/sources/meld/1.6/meld-1.6.1.tar.xz).
+    3) Extract Meld into a directory named meld-1.6.1 in your new folder.
+    4) Download Portable Python (http://www.portablepython.com/wiki/PortablePython2.7.3.1).
+    5) Run Portable Python installer to put Python and PyGTK (and nothing else) into a folder called 'portable-python-2.7.3.1' in your new folder.
+    6) Put all the files from this project except installer.nsi, LICENSE.rtf, and this file into the meld-1.6.1 directory.
+    7) Put the files excluded in 6) into your new folder.
+    8) Compile the .nsi with NSIS.
