@@ -17,4 +17,6 @@ Steps to build the installer:
 
 Steps to build the portable zip archive:
     1) Follow steps 1-6 of the installer instructions
-    2) Use 7-Zip or similar program to create the zip archive of the two folders.
+    2) Use 7-Zip (http://www.7-zip.org/) or similar program to create the zip archive of the two folders.
+
+Note for either, if you have started Meld in your newly created folder, to delete the .pyc files in the folder 'meld\meld' before zipping/compiling, otherwise they will be included (and some of these files include the path of your temporay directory in them).  If you have Cygwin (http://www.cygwin.com/) installed, you can just do find meld/meld -iname "*.pyc" -exec rm '{}' ';'
