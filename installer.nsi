@@ -1,5 +1,5 @@
 !define ProgramName "Meld"
-!define ProgramVersion "1.6.1-1"
+!define ProgramVersion "1.7.0"
 !define UninstallerExe "uninstall.exe"
 !define IconPath "$INSTDIR\meld\meld.ico"
 
