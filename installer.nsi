@@ -1,12 +1,24 @@
 !define ProgramName "Meld"
-!define ProgramVersion "1.7.0"
+!define MeldVersion "1.7.0"
+!define ProgramVersion "${MeldVersion}.0"
+!define Publisher "Keegan Witt"
 !define UninstallerExe "uninstall.exe"
 !define IconPath "$INSTDIR\meld\meld.ico"
+!define Filename "meld-${ProgramVersion}.exe"
 
 Name "${ProgramName}"
-OutFile "meld-${ProgramVersion}.exe"
+OutFile "${Filename}"
 Icon "meld\meld.ico"
 RequestExecutionLevel admin
+
+VIProductVersion "${ProgramVersion}"
+VIAddVersionKey "ProductName" "${ProgramName}"
+VIAddVersionKey "FileVersion" "${ProgramVersion}"
+VIAddVersionKey "ProductVersion" "${MeldVersion}"
+VIAddVersionKey "CompanyName" "${Publisher}"
+VIAddVersionKey "LegalCopyright" "Copyright (C) Keegan Witt"
+VIAddVersionKey "OriginalFilename" "${Filename}"
+VIAddVersionKey "FileDescription" "Meld ${MeldVersion} Installer"
 
 Page license
 Page components
@@ -28,7 +40,7 @@ Section "Program (Required)"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayName" "${ProgramName}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayIcon" "${IconPath}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion" "${ProgramVersion}"
-    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "Publisher" "Keegan Witt"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "Publisher" "${Publisher}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "230000"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString" "$\"$INSTDIR\${UninstallerExe}$\""
 SectionEnd
