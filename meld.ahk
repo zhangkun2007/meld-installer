@@ -6,4 +6,4 @@ Loop, %0%
     params .= %param%
 }
 
-Run, %A_WorkingDir%\..\python\App\pythonw.exe %A_WorkingDir%\bin\meld %params%
+Run, ..\python\App\pythonw.exe bin\meld %params%
