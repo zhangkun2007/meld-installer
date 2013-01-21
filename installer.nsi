@@ -2,7 +2,8 @@
 !define MeldVersion "1.6.1"
 !define ProgramVersion "${MeldVersion}.1"
 !define Publisher "Keegan Witt"
-!define UninstallerExe "uninstall.exe"
+!define ExePath "$INSTDIR\meld\meld.exe"
+!define UninstallerPath "$INSTDIR\uninstall.exe"
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
@@ -39,7 +40,8 @@ Section "Program (Required)"
     SetOutPath "$INSTDIR"
     File /r "meld"
     File /r "python"
-    WriteUninstaller "$INSTDIR\${UninstallerExe}"
+    WriteRegStr "HKLM" "Software\${ProgramName}" "Executable" "${ExePath}"
+    WriteUninstaller "${UninstallerPath}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayName" "${ProgramName}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayIcon" "${IconPath}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion" "${ProgramVersion}"
@@ -47,7 +49,7 @@ Section "Program (Required)"
     ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
     IntFmt $0 "0x%08X" $0
     WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "$0"
-    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString" "$INSTDIR\${UninstallerExe}"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString" "${UninstallerPath}"
     WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "NoModify" "1"
     WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "NoRepair" "1"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "InstallLocation" "$INSTDIR\"
@@ -60,14 +62,14 @@ Section "Start Menu Shortcut"
     SetShellVarContext all
     SetOutPath "$INSTDIR\meld"
     CreateDirectory "$SMPROGRAMS\${ProgramName}"
-    CreateShortCut "$SMPROGRAMS\${ProgramName}\${ProgramName}.lnk" "$INSTDIR\meld\meld.exe" "" "${IconPath}"
-    CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "$INSTDIR\${UninstallerExe}" "" "${IconPath}"
+    CreateShortCut "$SMPROGRAMS\${ProgramName}\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
+    CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "${UninstallerPath}" "" "${IconPath}"
 SectionEnd
 Section "Desktop Shortcut"
     SectionIn 2
     SetShellVarContext all
     SetOutPath "$INSTDIR\meld"
-    CreateShortCut "$DESKTOP\${ProgramName}.lnk" "$INSTDIR\meld\meld.exe" "" "${IconPath}"
+    CreateShortCut "$DESKTOP\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
 SectionEnd
 
 UninstPage components
@@ -79,10 +81,11 @@ Section "un.Program and Shortcuts (Required)"
     SetShellVarContext all
     RMDir /r "$INSTDIR\meld"
     RMDir /r "$INSTDIR\python"
-    Delete "$INSTDIR\${UninstallerExe}"
+    Delete "${UninstallerPath}"
     RMDir "$INSTDIR"
     RMDir /r "$SMPROGRAMS\${ProgramName}"
     Delete "$DESKTOP\${ProgramName}.lnk"
+    DeleteRegKey "HKLM" "Software\${ProgramName}"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
 
@@ -99,7 +102,7 @@ Function .onInit
     uninstall:
         ClearErrors
         ExecWait '$R0 _?=$INSTDIR'
-        Delete "$INSTDIR\${UninstallerExe}"
+        Delete "${UninstallerPath}"
         RMDir "$INSTDIR"
     done:
 FunctionEnd
