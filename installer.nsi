@@ -98,10 +98,8 @@ Function .onInit
     Abort
     uninstall:
         ClearErrors
-        ExecWait '"$INSTDIR\uninstall.exe" _?=$INSTDIR'
-        IfErrors no_remove_uninstaller done
-            Delete "$INSTDIR\${UninstallerExe}"
-            RMDir "$INSTDIR"
-        no_remove_uninstaller:
+        ExecWait '$R0 _?=$INSTDIR'
+        Delete "$INSTDIR\${UninstallerExe}"
+        RMDir "$INSTDIR"
     done:
 FunctionEnd
