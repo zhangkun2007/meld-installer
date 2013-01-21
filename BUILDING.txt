@@ -4,15 +4,15 @@ Stuff the instructions assume you have:
 
 Steps to build the installer:
     1) Create a folder to put all the necessary bits in.
-    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.7/meld-1.7.0.tar.xz).
+    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.6/meld-1.6.1.tar.xz).
     3) Extract Meld into a folder named 'meld' in your new folder.
     4) Apply this patch to the 'bin\meld' file: http://git.gnome.org/browse/meld/commit/?id=c8e32f072e3a75132826b9ef52c2e51461f26e12.  This is necessary because otherwise Windows will launch a command prompt window in addition to the Meld application window.
     5) Download Portable Python (http://www.portablepython.com/wiki/PortablePython2.7.3.1).
     6) Run Portable Python installer to put Python and PyGTK (and nothing else) into a folder called 'python' in your new folder.
-    7) Put all 'meld.exe' and 'meld.ico' into the 'meld' folder.
-    8) Put 'installer.nsi' and 'LICENSES.rtf' into your new folder.
-    9) Compile 'meld.ahk' with AutoHotkey.  Note that to set the icon on the generated .exe, you will need to comile through the GUI and not the Windows Explorer right click.
-   10) Add the generated 'meld.exe' into the 'meld' folder.
+    7) Compile 'meld.ahk' and 'meldc.ahk' with AutoHotkey.  Note that to set the icon on the generated .exe, you will need to comile through the GUI and not the Windows Explorer right click.
+    8) Add the generated 'meld.exe' and 'meldc.exe' files into the 'meld' folder.
+    9) Put 'meld.ico' files into the 'meld' folder.
+   10) Put 'installer.nsi' and 'LICENSES.rtf' into your new folder.
    11) Compile 'installer.nsi' with NSIS.
 
 Steps to build the portable zip archive:

@@ -1,10 +1,13 @@
 !define ProgramName "Meld"
-!define MeldVersion "1.7.0"
-!define ProgramVersion "${MeldVersion}.0"
+!define MeldVersion "1.6.1"
+!define ProgramVersion "${MeldVersion}.1"
 !define Publisher "Keegan Witt"
 !define UninstallerExe "uninstall.exe"
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
+!define WebsiteUrl "https://code.google.com/p/meld-installer/"
+
+!include "FileFunc.nsh"
 
 Name "${ProgramName}"
 OutFile "${Filename}"
@@ -41,8 +44,16 @@ Section "Program (Required)"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayIcon" "${IconPath}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion" "${ProgramVersion}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "Publisher" "${Publisher}"
-    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "230000"
-    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString" "$\"$INSTDIR\${UninstallerExe}$\""
+    ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+    IntFmt $0 "0x%08X" $0
+    WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "$0"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString" "$INSTDIR\${UninstallerExe}"
+    WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "NoModify" "1"
+    WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "NoRepair" "1"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "InstallLocation" "$INSTDIR\"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "URLInfoAbout" "${WebsiteUrl}"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "HelpLink" "${WebsiteUrl}"
+    WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "URLUpdateInfo" "${WebsiteUrl}"
 SectionEnd
 Section "Start Menu Shortcut"
     SectionIn 1
@@ -87,6 +98,6 @@ Function .onInit
     Abort
     uninstall:
         ClearErrors
-        Exec $INSTDIR\uninstall.exe
+        ExecWait '"$INSTDIR\uninstall.exe" _?=$INSTDIR'
     done:
 FunctionEnd

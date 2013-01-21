@@ -1,9 +1,3 @@
-﻿params := ""
-Loop, %0%
-{
-    param = %A_Index%
-    params .= " "
-    params .= %param%
-}
+﻿SetWorkingDir, %A_ScriptDir%
 
-Run, ..\python\App\pythonw.exe bin\meld %params%
+Run, ..\python\App\pythonw.exe bin\meld
