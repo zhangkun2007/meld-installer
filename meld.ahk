@@ -19,5 +19,5 @@ Loop, %0%
     firstParam := false
 }
 
-Run, ..\python\App\pythonw.exe bin\meld %params%
+RunWait, ..\python\App\pythonw.exe bin\meld %params%
 Exit, %ErrorLevel%
