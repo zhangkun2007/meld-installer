@@ -1,0 +1,14 @@
+﻿========================= NEWS ========================
+This is a high level overview of user-apparent changes.  For a complete change log, browse the Git changes: http://code.google.com/p/meld-installer/source/list.
+
+== 1.6 ==
+1.6.1
+    * Initial realease
+1.6.1.1
+    * Added option to create Windows Send To shortcut
+    * Better third party tool integration (see Issue 8: http://code.google.com/p/meld-installer/issues/detail?id=8)
+    * Added option to delete the user configuration files
+
+== 1.7 ==
+1.7.0
+    * Initial release
