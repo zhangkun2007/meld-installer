@@ -71,6 +71,12 @@ Section "Desktop Shortcut"
     SetOutPath "$INSTDIR\meld"
     CreateShortCut "$DESKTOP\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
 SectionEnd
+Section "Send To Menu Shortcut"
+    SectionIn 3
+    SetShellVarContext all
+    SetOutPath "$INSTDIR\meld"
+    CreateShortCut "$SENDTO\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
+SectionEnd
 
 UninstPage components
 UninstPage uninstConfirm
@@ -85,6 +91,7 @@ Section "un.Program and Shortcuts (Required)"
     RMDir "$INSTDIR"
     RMDir /r "$SMPROGRAMS\${ProgramName}"
     Delete "$DESKTOP\${ProgramName}.lnk"
+    Delete "$SENDTO\${ProgramName}.lnk"
     DeleteRegKey "HKLM" "Software\${ProgramName}"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
