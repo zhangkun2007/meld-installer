@@ -13,7 +13,8 @@ Steps to build the installer:
     8) Put the generated 'meld.exe' file into the 'meld' folder.
     9) Put 'meld.ico' file into the 'meld' folder.
    10) Put 'installer.nsi' and 'LICENSES.rtf' into your new folder.
-   11) Compile 'installer.nsi' with NSIS.
+   11) If you are changing the version of Meld, remember to change the version in 'installer.nsi'.
+   12) Compile 'installer.nsi' with NSIS.
 
 Steps to build the portable zip archive:
     1) Follow steps 1-6 of the installer instructions
