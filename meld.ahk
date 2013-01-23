@@ -1,4 +1,6 @@
-﻿SetWorkingDir, %A_ScriptDir%
+﻿#NoTrayIcon 
+
+SetWorkingDir, %A_ScriptDir%
 
 firstParam := true
 params := ""
