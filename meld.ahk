@@ -1,4 +1,4 @@
-﻿#NoTrayIcon 
+﻿#NoTrayIcon
 
 SetWorkingDir, %A_ScriptDir%
 
