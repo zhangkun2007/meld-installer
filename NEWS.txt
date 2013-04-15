@@ -10,6 +10,10 @@ This is a high level overview of user-apparent changes.  For a complete change l
     * Added option to delete the user configuration files
 
 == 1.7 ==
-1.7.0
+1.7.0.0
     * Initial release
     * Includes all fixes for 1.6.1.1
+1.7.1.0
+    * Updated to Meld 1.7.1
+1.7.2.0
+    * Updated to Meld 1.7.2
