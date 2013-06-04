@@ -17,3 +17,5 @@ This is a high level overview of user-apparent changes.  For a complete change l
     * Updated to Meld 1.7.1
 1.7.2.0
     * Updated to Meld 1.7.2
+1.7.3.0
+    * Updated to Meld 1.7.3

@@ -4,7 +4,7 @@ Stuff the instructions assume you have:
 
 Steps to build the installer:
     1) Create a folder to put all the necessary bits in.
-    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.7/meld-1.7.2.tar.xz).
+    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.7/meld-1.7.3.tar.xz).
     3) Extract Meld into a folder named 'meld' in your new folder.
     4) Download Portable Python (http://www.portablepython.com/wiki/PortablePython2.7.3.2).
     5) Run Portable Python installer to put Python and PyGTK (and nothing else) into a folder called 'python' in your new folder.

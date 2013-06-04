@@ -1,5 +1,5 @@
 !define ProgramName "Meld"
-!define MeldVersion "1.7.2"
+!define MeldVersion "1.7.3"
 !define ProgramVersion "${MeldVersion}.0"
 !define Publisher "Keegan Witt"
 !define ExePath "$INSTDIR\meld\meld.exe"
