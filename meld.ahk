@@ -29,7 +29,12 @@ if (portablePython = true) {
     RunWait, ..\python\App\pythonw.exe bin\meld %params%
 } else {
     EnvGet, pythonHome, PYTHON_HOME
-    RunWait, %pythonHome%\pythonw.exe bin\meld %params%
+    if (pythonHome <> "") {
+        RunWait, %pythonHome%\pythonw.exe bin\meld %params%
+    } else {
+        MsgBox, 0, Meld, Python was not included with install and PYTHON_HOME is not set.  Unable to determine what pythonw to execute.
+        ExitApp, 1
+    }
 }
 
-Exit, %ErrorLevel%
+ExitApp, %ErrorLevel%
