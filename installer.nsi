@@ -57,7 +57,6 @@ Section "Meld (Required)"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "URLUpdateInfo" "${WebsiteUrl}"
 SectionEnd
 Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)"
-    SectionIn 1
     SetOutPath "$INSTDIR"
     File /r "python"
     ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
@@ -65,24 +64,22 @@ Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)"
     WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "$0"
 SectionEnd
 Section "Start Menu Shortcut"
-    SectionIn 2
     SetShellVarContext all
-    SetOutPath "$INSTDIR\meld"
     CreateDirectory "$SMPROGRAMS\${ProgramName}"
     CreateShortCut "$SMPROGRAMS\${ProgramName}\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
     CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "${UninstallerPath}" "" "${IconPath}"
 SectionEnd
 Section "Desktop Shortcut"
-    SectionIn 3
     SetShellVarContext all
-    SetOutPath "$INSTDIR\meld"
     CreateShortCut "$DESKTOP\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
 SectionEnd
 Section "Send To Menu Shortcut"
-    SectionIn 4
     SetShellVarContext all
-    SetOutPath "$INSTDIR\meld"
     CreateShortCut "$SENDTO\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
+SectionEnd
+Section /o "Quick Launch Shortcut"
+    SetShellVarContext all
+    CreateShortCut "$QUICKLAUNCH\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
 SectionEnd
 
 UninstPage components
@@ -99,6 +96,7 @@ Section "un.Program and Shortcuts (Required)"
     RMDir /r "$SMPROGRAMS\${ProgramName}"
     Delete "$DESKTOP\${ProgramName}.lnk"
     Delete "$SENDTO\${ProgramName}.lnk"
+    Delete "$QUICKLAUNCH\${ProgramName}.lnk"
     DeleteRegKey "HKLM" "Software\${ProgramName}"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
