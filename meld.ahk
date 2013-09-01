@@ -21,5 +21,15 @@ Loop, %0%
     firstParam := false
 }
 
-RunWait, ..\python\App\pythonw.exe bin\meld %params%
+IfExist, ..\python\App\pythonw.exe
+    portablePython := true
+IfNotExist, ..\python\App\pythonw.exe
+    portablePython := false
+if (portablePython = true) {
+    RunWait, ..\python\App\pythonw.exe bin\meld %params%
+} else {
+    EnvGet, pythonHome, PYTHON_HOME
+    RunWait, %pythonHome%\pythonw.exe bin\meld %params%
+}
+
 Exit, %ErrorLevel%

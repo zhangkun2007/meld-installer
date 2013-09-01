@@ -35,11 +35,10 @@ LicenseData "LICENSES.rtf"
 DirText "Choose a directory to install Meld to."
 InstallDir "$PROGRAMFILES\${ProgramName}"
 
-Section "Program (Required)"
+Section "Meld (Required)"
     SectionIn RO
     SetOutPath "$INSTDIR"
     File /r "meld"
-    File /r "python"
     WriteRegStr "HKLM" "Software\${ProgramName}" "Executable" "${ExePath}"
     WriteUninstaller "${UninstallerPath}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayName" "${ProgramName}"
@@ -57,8 +56,13 @@ Section "Program (Required)"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "HelpLink" "${WebsiteUrl}"
     WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "URLUpdateInfo" "${WebsiteUrl}"
 SectionEnd
-Section "Start Menu Shortcut"
+Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)"
     SectionIn 1
+    SetOutPath "$INSTDIR"
+    File /r "python"
+SectionEnd
+Section "Start Menu Shortcut"
+    SectionIn 2
     SetShellVarContext all
     SetOutPath "$INSTDIR\meld"
     CreateDirectory "$SMPROGRAMS\${ProgramName}"
@@ -66,13 +70,13 @@ Section "Start Menu Shortcut"
     CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "${UninstallerPath}" "" "${IconPath}"
 SectionEnd
 Section "Desktop Shortcut"
-    SectionIn 2
+    SectionIn 3
     SetShellVarContext all
     SetOutPath "$INSTDIR\meld"
     CreateShortCut "$DESKTOP\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
 SectionEnd
 Section "Send To Menu Shortcut"
-    SectionIn 3
+    SectionIn 4
     SetShellVarContext all
     SetOutPath "$INSTDIR\meld"
     CreateShortCut "$SENDTO\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
