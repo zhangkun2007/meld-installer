@@ -60,6 +60,9 @@ Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)"
     SectionIn 1
     SetOutPath "$INSTDIR"
     File /r "python"
+    ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+    IntFmt $0 "0x%08X" $0
+    WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "$0"
 SectionEnd
 Section "Start Menu Shortcut"
     SectionIn 2
