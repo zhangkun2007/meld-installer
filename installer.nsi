@@ -9,9 +9,6 @@
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
 !define MUI_UNICON "meld\meld.ico"
 !define MUI_ICON "meld\meld.ico"
-!define MUI_FINISHPAGE_TITLE "${ProgramName} Installation Complete"
-!define MUI_FINISHPAGE_RUN_TEXT "Launch ${ProgramName}"
-!define MUI_FINISHPAGE_BUTTON "Finish"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
 
 SetCompressor /SOLID bzip2
