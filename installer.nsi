@@ -7,15 +7,32 @@
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
-
-!include "FileFunc.nsh"
+!define MUI_UNICON "meld\meld.ico"
+!define MUI_ICON "meld\meld.ico"
+!define MUI_FINISHPAGE_TITLE "${ProgramName} Installation Complete"
+!define MUI_FINISHPAGE_RUN_TEXT "Launch ${ProgramName}"
+!define MUI_FINISHPAGE_BUTTON "Finish"
+!define MUI_FINISHPAGE_RUN "${ExePath}"
 
 SetCompressor /SOLID bzip2
 
+!include "MUI2.nsh"
+!include "FileFunc.nsh"
+
+!insertmacro MUI_PAGE_LICENSE "LICENSES.rtf"
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_UNPAGE_COMPONENTS
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_LANGUAGE "English"
+
 Name "${ProgramName}"
 OutFile "${Filename}"
-Icon "meld\meld.ico"
 RequestExecutionLevel admin
+InstallDir "$PROGRAMFILES\${ProgramName}"
 
 VIProductVersion "${ProgramVersion}"
 VIAddVersionKey "ProductName" "${ProgramName}"
@@ -25,17 +42,6 @@ VIAddVersionKey "CompanyName" "${Publisher}"
 VIAddVersionKey "LegalCopyright" "Copyright (C) Keegan Witt"
 VIAddVersionKey "OriginalFilename" "${Filename}"
 VIAddVersionKey "FileDescription" "Meld ${MeldVersion} Installer"
-
-Page license
-Page components
-Page directory
-Page instfiles
-
-LicenseText "Licenses"
-LicenseData "LICENSES.rtf"
-
-DirText "Choose a directory to install Meld to."
-InstallDir "$PROGRAMFILES\${ProgramName}"
 
 SectionGroup /e "!Program"
     Section "Meld (Required)"
@@ -87,10 +93,6 @@ SectionGroup /e "Shortcuts"
         CreateShortCut "$QUICKLAUNCH\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
     SectionEnd
 SectionGroupEnd
-
-UninstPage components
-UninstPage uninstConfirm
-UninstPage instfiles
 
 Section "un.Program and Shortcuts (Required)"
     SectionIn RO
