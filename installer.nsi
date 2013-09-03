@@ -10,6 +10,8 @@
 
 !include "FileFunc.nsh"
 
+SetCompressor /SOLID bzip2
+
 Name "${ProgramName}"
 OutFile "${Filename}"
 Icon "meld\meld.ico"
