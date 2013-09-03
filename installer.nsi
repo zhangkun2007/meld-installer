@@ -114,7 +114,7 @@ SectionEnd
 Function .onInit
     ReadRegStr $R0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString"
     StrCmp $R0 "" done
-    MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed. $\n$\nClick `OK` to remove the previous version or `Cancel` to cancel this upgrade." IDOK uninstall
+    MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed. $\n$\nClick `OK` to remove the currently installed software or `Cancel` to cancel this installation." IDOK uninstall
     Abort
     uninstall:
         ClearErrors
