@@ -101,7 +101,7 @@ Section "un.Program and Shortcuts (Required)"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
 
-Section "un.User Files (Uncheck if Reinstalling)"
+Section /o "un.User Application Data"
     SectionIn 1
     RMDir /r "$APPDATA\Meld"
 SectionEnd
