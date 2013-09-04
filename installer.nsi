@@ -7,7 +7,6 @@
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
-!define MUI_UNICON "meld\meld.ico"
 !define MUI_ICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
 
