@@ -36,7 +36,7 @@ VIAddVersionKey "ProductName" "${ProgramName}"
 VIAddVersionKey "FileVersion" "${ProgramVersion}"
 VIAddVersionKey "ProductVersion" "${MeldVersion}"
 VIAddVersionKey "CompanyName" "${Publisher}"
-VIAddVersionKey "LegalCopyright" "Copyright (C) Keegan Witt"
+VIAddVersionKey "LegalCopyright" "Copyright (C) ${Publisher}"
 VIAddVersionKey "OriginalFilename" "${Filename}"
 VIAddVersionKey "FileDescription" "Meld ${MeldVersion} Installer"
 
@@ -113,18 +113,19 @@ SectionEnd
 
 Function .onInit
     ReadRegStr $0  "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion"
-    StrCmp $0 "" done
+    StrCmp "$0" "" done
     MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed.$\n$\nClick `OK` to replace version $0 with version ${ProgramVersion} or click `Cancel` to cancel this installation." IDCANCEL abort IDOK uninstall
     uninstall:
         ReadRegStr $1 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString"
         ReadRegStr $2 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "InstallLocation"
         ClearErrors
-        ExecWait '"$1" _?=$2'
-        IfErrors errors
+        ExecWait '"$1" _?=$2' $3
+        StrCmp "$3" "0" +1 errors
         Delete "$1"
         RMDir "$2"
         Goto done
      errors:
+       StrCmp "$3" "1" abort +1
        MessageBox MB_OK "Uninstall exited with errors."
        Goto abort
      abort:
