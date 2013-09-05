@@ -107,7 +107,7 @@ Section "un.Program and Shortcuts (Required)"
 SectionEnd
 
 Section /o "un.User Application Data"
-    SectionIn 1
+    SetShellVarContext current
     RMDir /r "$APPDATA\Meld"
 SectionEnd
 
