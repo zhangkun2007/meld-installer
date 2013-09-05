@@ -10,6 +10,7 @@
 !define MUI_ICON "meld\meld.ico"
 !define MUI_UNICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
+!define MUI_WELCOMEUNPAGE_TEXT "Please quit any running instances of ${ProgramName} before continuing."
 
 SetCompressor /SOLID bzip2
 
@@ -21,6 +22,7 @@ SetCompressor /SOLID bzip2
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_UNPAGE_WELCOME
 !insertmacro MUI_UNPAGE_COMPONENTS
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
