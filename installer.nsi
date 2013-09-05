@@ -7,6 +7,8 @@
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
+!define MUI_ICON "meld\meld.ico"
+!define MUI_UNICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
 
 SetCompressor /SOLID bzip2
@@ -117,8 +119,8 @@ Function .onInit
         ReadRegStr $1 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString"
         ReadRegStr $2 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "InstallLocation"
         ClearErrors
-        ExecWait '$1 _?=$2'
-        IfErrors  errors
+        ExecWait '"$1" _?=$2'
+        IfErrors errors
         Delete "$1"
         RMDir "$2"
         Goto done
