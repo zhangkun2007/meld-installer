@@ -10,7 +10,6 @@
 !define MUI_ICON "meld\meld.ico"
 !define MUI_UNICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
-!define MUI_WELCOMEUNPAGE_TEXT "Please quit any running instances of ${ProgramName} before continuing."
 
 SetCompressor /SOLID bzip2
 
