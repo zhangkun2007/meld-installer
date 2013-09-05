@@ -1,13 +1,12 @@
 !define ProgramName "Meld"
 !define MeldVersion "1.7.5"
-!define ProgramVersion "${MeldVersion}.0"
+!define ProgramVersion "${MeldVersion}.1"
 !define Publisher "Keegan Witt"
 !define ExePath "$INSTDIR\meld\meld.exe"
 !define UninstallerPath "$INSTDIR\uninstall.exe"
 !define IconPath "$INSTDIR\meld\meld.ico"
 !define Filename "meld-${ProgramVersion}.exe"
 !define WebsiteUrl "https://code.google.com/p/meld-installer/"
-!define MUI_ICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
 
 SetCompressor /SOLID bzip2
@@ -111,15 +110,22 @@ Section /o "un.User Application Data"
 SectionEnd
 
 Function .onInit
-    ReadRegStr $R0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString"
-    StrCmp $R0 "" done
-    ReadRegStr $R0  HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion"
-    MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed. $\n$\nClick `OK` to replace version $R0 with version ${ProgramVersion} or click `Cancel` to cancel this installation." IDOK uninstall
-    Abort
+    ReadRegStr $0  "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion"
+    StrCmp $0 "" done
+    MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed.$\n$\nClick `OK` to replace version $0 with version ${ProgramVersion} or click `Cancel` to cancel this installation." IDCANCEL abort IDOK uninstall
     uninstall:
+        ReadRegStr $1 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "UninstallString"
+        ReadRegStr $2 "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "InstallLocation"
         ClearErrors
-        ExecWait '$R0 _?=$INSTDIR'
-        Delete "${UninstallerPath}"
-        RMDir "$INSTDIR"
+        ExecWait '$1 _?=$2'
+        IfErrors  errors
+        Delete "$1"
+        RMDir "$2"
+        Goto done
+     errors:
+       MessageBox MB_OK "Uninstall exited with errors."
+       Goto abort
+     abort:
+        Abort
     done:
 FunctionEnd
