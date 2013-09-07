@@ -1,7 +1,5 @@
 ﻿#NoTrayIcon
 
-SetWorkingDir, %A_ScriptDir%
-
 firstParam := true
 params := ""
 Loop, %0%
@@ -21,12 +19,12 @@ Loop, %0%
     firstParam := false
 }
 
-IfExist, ..\python\App\pythonw.exe
+IfExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := true
-IfNotExist, ..\python\App\pythonw.exe
+IfNotExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := false
 if (portablePython = true) {
-    RunWait, ..\python\App\pythonw.exe bin\meld %params%
+    RunWait, %A_ScriptDir%\..\python\App\pythonw.exe bin\meld %params%
 } else {
     EnvGet, pythonHome, PYTHON_HOME
     if (pythonHome <> "") {
