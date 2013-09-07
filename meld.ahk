@@ -24,11 +24,11 @@ IfExist, %A_ScriptDir%\..\python\App\pythonw.exe
 IfNotExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := false
 if (portablePython = true) {
-    RunWait, %A_ScriptDir%\..\python\App\pythonw.exe "%A_ScriptDir%\bin\meld %params%"
+    RunWait, %A_ScriptDir%\..\python\App\pythonw.exe "%A_ScriptDir%\bin\meld" %params%
 } else {
     EnvGet, pythonHome, PYTHON_HOME
     if (pythonHome <> "") {
-        RunWait, %pythonHome%\pythonw.exe "%A_ScriptDir%\bin\meld %params%"
+        RunWait, %pythonHome%\pythonw.exe "%A_ScriptDir%\bin\meld" %params%
     } else {
         MsgBox, 0, Meld, Python was not included with install and PYTHON_HOME is not set.  Unable to determine what pythonw to execute.
         ExitApp, 1
