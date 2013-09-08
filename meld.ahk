@@ -1,5 +1,6 @@
 ﻿#NoTrayIcon
 
+; store parameters in a string
 firstParam := true
 params := ""
 Loop, %0%
@@ -19,6 +20,7 @@ Loop, %0%
     firstParam := false
 }
 
+; run Meld
 IfExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := true
 IfNotExist, %A_ScriptDir%\..\python\App\pythonw.exe
@@ -34,5 +36,4 @@ if (portablePython = true) {
         ExitApp, 1
     }
 }
-
 ExitApp, %ErrorLevel%
