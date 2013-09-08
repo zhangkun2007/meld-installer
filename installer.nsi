@@ -108,14 +108,13 @@ Section "un.Program and Shortcuts (Required)" unProgram
     DeleteRegKey "HKLM" "Software\${ProgramName}"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
-
 Section /o "un.User Application Data" unAppData
     SetShellVarContext current
     RMDir /r "$APPDATA\Meld"
 SectionEnd
 
 Function .onInit
-    IfSilent isSilent continue
+    IfSilent isSilent notSilent
     isSilent:
     !insertmacro SelectSection meld
     !insertmacro SelectSection python
@@ -123,7 +122,7 @@ Function .onInit
     !insertmacro SelectSection desktopShortcut
     !insertmacro SelectSection sendToShortcut
     !insertmacro SelectSection unProgram
-    continue:
+    notSilent:
 
     ReadRegStr $0  "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion"
     StrCmp "$0" "" done
