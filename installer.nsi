@@ -40,7 +40,7 @@ VIAddVersionKey "ProductVersion" "${MeldVersion}"
 VIAddVersionKey "CompanyName" "${Publisher}"
 VIAddVersionKey "LegalCopyright" "Copyright (C) ${Publisher}"
 VIAddVersionKey "OriginalFilename" "${Filename}"
-VIAddVersionKey "FileDescription" "Meld ${MeldVersion} Installer"
+VIAddVersionKey "FileDescription" "${ProgramName} ${MeldVersion} Installer"
 
 SectionGroup /e "!Program"
     Section "Meld (Required)" meld
