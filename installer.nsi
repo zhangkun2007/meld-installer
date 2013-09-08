@@ -15,6 +15,7 @@ SetCompressor /SOLID bzip2
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
+!include "Sections.nsh"
 
 !insertmacro MUI_PAGE_LICENSE "LICENSES.rtf"
 !insertmacro MUI_PAGE_COMPONENTS
@@ -42,7 +43,7 @@ VIAddVersionKey "OriginalFilename" "${Filename}"
 VIAddVersionKey "FileDescription" "Meld ${MeldVersion} Installer"
 
 SectionGroup /e "!Program"
-    Section "Meld (Required)"
+    Section "Meld (Required)" meld
         SectionIn RO
         SetOutPath "$INSTDIR"
         File /r "meld"
@@ -63,7 +64,7 @@ SectionGroup /e "!Program"
         WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "HelpLink" "${WebsiteUrl}"
         WriteRegStr "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "URLUpdateInfo" "${WebsiteUrl}"
     SectionEnd
-    Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)"
+    Section "Python (not needed if PYTHON_HOME points to Python 2 with PyGTK)" python
         SetOutPath "$INSTDIR"
         File /r "python"
         ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
@@ -71,28 +72,29 @@ SectionGroup /e "!Program"
         WriteRegDWORD "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "EstimatedSize" "$0"
     SectionEnd
 SectionGroupEnd
+
 SectionGroup /e "Shortcuts"
-    Section "Start Menu Shortcut"
+    Section "Start Menu Shortcut" startMenuShortcut
         SetShellVarContext all
         CreateDirectory "$SMPROGRAMS\${ProgramName}"
         CreateShortCut "$SMPROGRAMS\${ProgramName}\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
         CreateShortCut "$SMPROGRAMS\${ProgramName}\Uninstall ${ProgramName}.lnk" "${UninstallerPath}" "" "${IconPath}"
     SectionEnd
-    Section "Desktop Shortcut"
+    Section "Desktop Shortcut" desktopShortcut
         SetShellVarContext all
         CreateShortCut "$DESKTOP\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
     SectionEnd
-    Section "Send To Menu Shortcut"
+    Section "Send To Menu Shortcut" sendToShortcut
         SetShellVarContext all
         CreateShortCut "$SENDTO\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
     SectionEnd
-    Section /o "Quick Launch Shortcut"
+    Section /o "Quick Launch Shortcut" quickLaunchShortcut
         SetShellVarContext all
         CreateShortCut "$QUICKLAUNCH\${ProgramName}.lnk" "${ExePath}" "" "${IconPath}"
     SectionEnd
 SectionGroupEnd
 
-Section "un.Program and Shortcuts (Required)"
+Section "un.Program and Shortcuts (Required)" unProgram
     SectionIn RO
     SetShellVarContext all
     RMDir /r "$INSTDIR\meld"
@@ -107,12 +109,22 @@ Section "un.Program and Shortcuts (Required)"
     DeleteRegKey "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}"
 SectionEnd
 
-Section /o "un.User Application Data"
+Section /o "un.User Application Data" unAppData
     SetShellVarContext current
     RMDir /r "$APPDATA\Meld"
 SectionEnd
 
 Function .onInit
+    IfSilent isSilent continue
+    isSilent:
+    !insertmacro SelectSection meld
+    !insertmacro SelectSection python
+    !insertmacro SelectSection startMenuShortcut
+    !insertmacro SelectSection desktopShortcut
+    !insertmacro SelectSection sendToShortcut
+    !insertmacro SelectSection unProgram
+    continue:
+
     ReadRegStr $0  "HKLM" "Software\Microsoft\Windows\CurrentVersion\Uninstall\${ProgramName}" "DisplayVersion"
     StrCmp "$0" "" done
     MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "${ProgramName} is already installed.$\n$\nClick `OK` to replace version $0 with version ${ProgramVersion} or click `Cancel` to cancel this installation." /SD IDOK IDCANCEL abort IDOK uninstall
