@@ -1,4 +1,4 @@
-﻿#NoTrayIcon
+ #NoTrayIcon
 
 ; store parameters in a string
 firstParam := true
@@ -20,11 +20,13 @@ Loop, %0%
     firstParam := false
 }
 
-; run Meld
+; figure out if Python is bundled
 IfExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := true
 IfNotExist, %A_ScriptDir%\..\python\App\pythonw.exe
     portablePython := false
+
+; run Meld
 if (portablePython = true) {
     RunWait, %A_ScriptDir%\..\python\App\pythonw.exe "%A_ScriptDir%\bin\meld" %params%
 } else {
