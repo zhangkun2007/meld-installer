@@ -11,7 +11,7 @@
 !define MUI_UNICON "meld\meld.ico"
 !define MUI_FINISHPAGE_RUN "${ExePath}"
 
-SetCompressor /SOLID bzip2
+SetCompressor /SOLID lzma
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
