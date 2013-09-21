@@ -20,21 +20,29 @@ Loop, %0%
     firstParam := false
 }
 
-; figure out if Python is bundled
-IfExist, %A_ScriptDir%\..\python\App\pythonw.exe
+; determine which executable to use (use python.exe when calling from the commandline so the process waits for the exit code, otherwise use pythonw.exe so no command prompt appears)
+if (params <> "") {
+    pyExe = python.exe
+} else {
+    pyExe = pythonw.exe
+}
+
+; determine if Python is bundled
+IfExist, %A_ScriptDir%\..\python\App\%pyExe%
     portablePython := true
-IfNotExist, %A_ScriptDir%\..\python\App\pythonw.exe
+IfNotExist, %A_ScriptDir%\..\python\App\%pyExe%
     portablePython := false
 
 ; run Meld
 if (portablePython = true) {
-    RunWait, %A_ScriptDir%\..\python\App\pythonw.exe "%A_ScriptDir%\bin\meld" %params%
+    RunWait, "%A_ScriptDir%\..\python\App\%pyExe%" "%A_ScriptDir%\bin\meld" %params%
 } else {
+    MsgBox NOT_PORTABLE
     EnvGet, pythonHome, PYTHON_HOME
     if (pythonHome <> "") {
-        RunWait, %pythonHome%\pythonw.exe "%A_ScriptDir%\bin\meld" %params%
+        RunWait, "%pythonHome%\%pyExe%" "%A_ScriptDir%\bin\meld" %params%
     } else {
-        MsgBox, 0, Meld, Python was not included with install and PYTHON_HOME is not set.  Unable to determine what pythonw to execute.
+        MsgBox, 0, "Meld", "Python was not included with install and PYTHON_HOME is not set.  Unable to determine what pythonw to execute."
         ExitApp, 1
     }
 }
