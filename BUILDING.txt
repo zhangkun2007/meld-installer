@@ -1,4 +1,4 @@
-Stuff the instructions assume you have the following installed and on your path:
+Stuff the instructions assume you have installed and on your path:
     * NSIS (http://nsis.sourceforge.net/Main_Page)
     * AutoHotkey (http://www.autohotkey.com/)
     * 7-Zip (http://www.7-zip.org/)
