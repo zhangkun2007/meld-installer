@@ -37,7 +37,6 @@ IfNotExist, %A_ScriptDir%\..\python\App\%pyExe%
 if (portablePython = true) {
     RunWait, "%A_ScriptDir%\..\python\App\%pyExe%" "%A_ScriptDir%\bin\meld" %params%
 } else {
-    MsgBox NOT_PORTABLE
     EnvGet, pythonHome, PYTHON_HOME
     if (pythonHome <> "") {
         RunWait, "%pythonHome%\%pyExe%" "%A_ScriptDir%\bin\meld" %params%
