@@ -5,7 +5,7 @@ Stuff the instructions assume you have installed and on your path:
 
 Steps to build the installer:
     1) Create a folder to put all the necessary bits in.
-    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.8/meld-1.8.1.tar.xz).
+    2) Download Meld (http://ftp.gnome.org/pub/GNOME/sources/meld/1.8/meld-1.8.2.tar.xz).
     3) Extract Meld into a folder named 'meld' in your new folder.
     4) Download Portable Python (http://www.portablepython.com/wiki/PortablePython2.7.5.1).
     5) Run Portable Python installer to put Python and PyGTK (and nothing else) into a folder called 'python' in your new folder.  You'll need to move the contents up, since the installer always creates a subdirectory called 'Portable Python 2.7.5.1'.
@@ -15,11 +15,11 @@ Steps to build the installer:
     8) Put the generated 'meldc.exe' file into the 'meld' folder.
     9) Put 'meld.ico' file into the 'meld' folder.
    10) Put 'installer.nsi' and 'LICENSES.rtf' into your new folder.
-   11) If you are changing the version of Meld, remember to change the version in 'installer.nsi', and if this is a binary for Git master, remember to change the verison in 'meldapp.py' to match the commit SHA-1 from the Git log.
+   11) If you are changing the version of Meld, remember to change the version in 'installer.nsi'.  If this is a binary for Git master, remember to change the verison in 'conf.py' to match the commit SHA-1 from the Git log.  If this is a binary for a branch, remember to change the version in 'meldapp.py' to indicate that this is a preview.
    12) Run "makensis installer.nsi".
 
 Steps to build the portable zip archive:
     1) Follow steps 1-9 of the installer instructions.
-    2) Run "7z.exe a -mx9 meld-1.8.1.1.zip meld python".
+    2) Run "7z.exe a -mx9 meld-1.8.2.0.zip meld python".
 
 Note for either, if you have started Meld in your newly created folder, to delete the .pyc files in the folder 'meld\meld' before zipping/compiling, otherwise they will be included (and some of these files include the path of your temporay directory in them).  If you have Cygwin (http://www.cygwin.com/) installed, you can just do find meld/meld -iname "*.pyc" -exec rm '{}' ';'

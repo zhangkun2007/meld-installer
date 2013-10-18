@@ -1,6 +1,6 @@
 !define ProgramName "Meld"
-!define MeldVersion "1.8.1"
-!define ProgramVersion "${MeldVersion}.1"
+!define MeldVersion "1.8.2"
+!define ProgramVersion "${MeldVersion}.0"
 !define Publisher "Keegan Witt"
 !define CLIExePath "$INSTDIR\meld\meldc.exe"
 !define ExePath "$INSTDIR\meld\meld.exe"
@@ -114,6 +114,9 @@ SectionEnd
 Section /o "un.User Application Data" unAppData
     SetShellVarContext current
     RMDir /r "$APPDATA\Meld"
+    RMDir /r "$LOCALAPPDATA\Meld"
+    RMDir /r "$APPDATA\meld"
+    RMDir /r "$LOCALAPPDATA\meld"
 SectionEnd
 
 Function .onInit
