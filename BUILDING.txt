@@ -20,6 +20,6 @@ Steps to build the installer:
 
 Steps to build the portable zip archive:
     1) Follow steps 1-9 of the installer instructions.
-    2) Run "7z.exe a -mx9 meld-1.8.2.0.zip meld python".
+    2) Run "7z.exe a -mx9 meld-1.8.2.0.zip meld python".  Remeber to change the version in the command if you're building Git master or a branch.
 
 Note for either, if you have started Meld in your newly created folder, to delete the .pyc files in the folder 'meld\meld' before zipping/compiling, otherwise they will be included (and some of these files include the path of your temporay directory in them).  If you have Cygwin (http://www.cygwin.com/) installed, you can just do find meld/meld -iname "*.pyc" -exec rm '{}' ';'
