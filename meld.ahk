@@ -15,11 +15,15 @@ if (portablePython = true) {
     ExitApp, %ErrorLevel%
 } else {
     EnvGet, pythonHome, PYTHON_HOME
-    if (pythonHome <> "") {
+    EnvGet, meldPython, MELD_PYTHON
+    if (meldPython <> "") {
+        RunWait, "%meldPython%\pythonw.exe" "%A_ScriptDir%\bin\meld" %params%
+        ExitApp, %ErrorLevel%
+    } else if (pythonHome <> "") {
         RunWait, "%pythonHome%\pythonw.exe" "%A_ScriptDir%\bin\meld" %params%
         ExitApp, %ErrorLevel%
     } else {
-        MsgBox, 0, Meld, Python was not included with install and PYTHON_HOME is not set.  Unable to determine what pythonw to execute.
+        MsgBox, 0, Meld, Python was not included with install and neither MELD_PYTHON or PYTHON_HOME were set.  Unable to determine what pythonw to execute.
         ExitApp, 1
     }
 }
