@@ -15,11 +15,11 @@ Steps to build the installer:
     8) Put the generated 'meldc.exe' file into the 'meld' folder.
     9) Put 'meld.ico' file into the 'meld' folder.
    10) Put 'installer.nsi' and 'LICENSES.rtf' into your new folder.
-   11) If you are changing the version of Meld, remember to change the version in 'installer.nsi'.  If this is a binary for Git master, remember to change the verison in 'conf.py' to match the commit SHA-1 from the Git log.  If this is a binary for a branch, remember to change the version in 'meldapp.py' to indicate that this is a preview.
+   11) If you are changing the version of Meld, remember to change the version in 'installer.nsi'.  If this is a binary for Git master, remember to change the version in 'conf.py' to match the commit SHA-1 from the Git log.  If this is a binary for a branch, remember to change the version in 'meldapp.py' to indicate that this is a preview.
    12) Run "makensis installer.nsi".
 
 Steps to build the portable zip archive:
     1) Follow steps 1-9 of the installer instructions.
-    2) Run "7z.exe a -mx9 meld-1.8.2.1.zip meld python".  Remeber to change the version in the command if you're building Git master or a branch.
+    2) Run "7z.exe a -mx9 meld-1.8.2.1.zip meld python".  Remember to change the version in the command if you're building Git master or a branch.
 
-Note for either, if you have started Meld in your newly created folder, to delete the .pyc files in the folder 'meld\meld' before zipping/compiling, otherwise they will be included (and some of these files include the path of your temporay directory in them).  If you have Cygwin (http://www.cygwin.com/) installed, you can just do find meld/meld -iname "*.pyc" -exec rm '{}' ';'
+Note for either, if you have started Meld in your newly created folder, to delete the .pyc files in the folder 'meld\meld' before zipping/compiling, otherwise they will be included (and some of these files include the path of your temporary directory in them).  If you have Cygwin (http://www.cygwin.com/) installed, you can just do find meld/meld -iname "*.pyc" -exec rm '{}' ';'
